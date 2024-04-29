@@ -31,7 +31,7 @@ class MainActivity : ComponentActivity() {
                             WelcomeScreen(navController)
                         }
                         composable("Action") {
-                            ActionScreen()
+                            ActionScreen(navController = navController)
                         }
                     }
                 }

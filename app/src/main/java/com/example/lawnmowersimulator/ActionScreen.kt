@@ -17,6 +17,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -30,10 +31,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.lawnmowersimulator.ui.theme.LawnMowerSimulatorTheme
 
+
 @Composable
-fun ActionScreen() {
+fun ActionScreen(navController: NavController) {
     val context = LocalContext.current
     val viewModel = ViewModel(context = context)
     Box(
@@ -45,15 +48,18 @@ fun ActionScreen() {
             )
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
-            GrassClockGrid(grassBlocks = 54, viewModel)
+            GrassClockGrid(grassBlocks = 54, viewModel, navController)
         }
     }
 }
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun GrassBlock(viewModel: ViewModel) {
+fun GrassBlock(viewModel: ViewModel, navController: NavController) {
     var isVisible by remember { mutableStateOf(true) }
+    if (viewModel.hiddenCount == 54) {
+        navController.navigate("Welcome")
+    }
 
     Box(
         modifier = Modifier
@@ -61,8 +67,12 @@ fun GrassBlock(viewModel: ViewModel) {
             .height(50.dp)
             //.border(0.5.dp, Color.White)
             .clickable {
-                isVisible = !isVisible
+                if (isVisible) {
+                    viewModel.hiddenCount++
+                }
+                isVisible = false
                 viewModel.playSound()
+                println(viewModel.hiddenCount)
             }
     ) {
         if (isVisible) {
@@ -77,10 +87,10 @@ fun GrassBlock(viewModel: ViewModel) {
 
 
 @Composable
-fun GrassClockGrid(grassBlocks: Int, viewModel: ViewModel) {
+fun GrassClockGrid(grassBlocks: Int, viewModel: ViewModel, navController: NavController) {
     LazyVerticalGrid(columns = GridCells.Adaptive(minSize = 125.dp)) {
         items(grassBlocks) {
-            GrassBlock(viewModel)
+            GrassBlock(viewModel, navController)
         }
     }
 }
