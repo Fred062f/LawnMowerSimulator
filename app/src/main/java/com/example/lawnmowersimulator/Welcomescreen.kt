@@ -19,10 +19,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 
 @Composable
-@Preview
-fun WelcomeScreen() {
+fun WelcomeScreen(navController: NavController) {
     val image = painterResource(R.drawable.lawn_mower_png_photo)
     Column(
         modifier = Modifier
@@ -41,7 +42,7 @@ fun WelcomeScreen() {
         )
         Image(
             painter = image,
-            contentDescription = "Græsslåmaskine",
+            contentDescription = "Lawn Mower",
             alpha = 1f,
             modifier = Modifier
                 .size(width = 200.dp, height = 200.dp)
@@ -71,7 +72,7 @@ fun WelcomeScreen() {
         )
 
         Button(
-            onClick = {},
+            onClick = {navController.navigate("Action")},
             modifier = Modifier.padding(top = 16.dp),
         ) {
             Text(
