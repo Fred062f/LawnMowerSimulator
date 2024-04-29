@@ -1,7 +1,10 @@
 package com.example.lawnmowersimulator
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,6 +15,10 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Brush
@@ -39,20 +46,28 @@ fun ActionScreen() {
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun GrassBlock() {
+    var isVisible by remember { mutableStateOf(true) }
+
     Box(
         modifier = Modifier
             .width(50.dp)
             .height(50.dp)
-            .border(0.5.dp, Color.White)
-            .paint(
+            //.border(0.5.dp, Color.White)
+            .clickable { isVisible = !isVisible }
+    ) {
+        if (isVisible) {
+            Image(
                 painter = painterResource(id = R.drawable.grass),
+                contentDescription = null,
                 contentScale = ContentScale.FillBounds
             )
-            .clickable { println("Clicked") }
-    )
+        }
+    }
 }
+
 
 @Composable
 fun GrassClockGrid(grassBlocks: Int) {
