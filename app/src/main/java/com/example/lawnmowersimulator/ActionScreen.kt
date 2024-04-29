@@ -1,5 +1,6 @@
 package com.example.lawnmowersimulator
 
+import android.content.Context
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -25,6 +26,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -32,6 +34,8 @@ import com.example.lawnmowersimulator.ui.theme.LawnMowerSimulatorTheme
 
 @Composable
 fun ActionScreen() {
+    val context = LocalContext.current
+    val viewModel = ViewModel(context = context)
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -41,14 +45,14 @@ fun ActionScreen() {
             )
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
-            GrassClockGrid(grassBlocks = 51)
+            GrassClockGrid(grassBlocks = 54, viewModel)
         }
     }
 }
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun GrassBlock() {
+fun GrassBlock(viewModel: ViewModel) {
     var isVisible by remember { mutableStateOf(true) }
 
     Box(
@@ -56,7 +60,10 @@ fun GrassBlock() {
             .width(50.dp)
             .height(50.dp)
             //.border(0.5.dp, Color.White)
-            .clickable { isVisible = !isVisible }
+            .clickable {
+                isVisible = !isVisible
+                viewModel.playSound()
+            }
     ) {
         if (isVisible) {
             Image(
@@ -70,18 +77,10 @@ fun GrassBlock() {
 
 
 @Composable
-fun GrassClockGrid(grassBlocks: Int) {
+fun GrassClockGrid(grassBlocks: Int, viewModel: ViewModel) {
     LazyVerticalGrid(columns = GridCells.Adaptive(minSize = 125.dp)) {
         items(grassBlocks) {
-            GrassBlock()
+            GrassBlock(viewModel)
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ActionScreenPreview() {
-    LawnMowerSimulatorTheme {
-        ActionScreen()
     }
 }
