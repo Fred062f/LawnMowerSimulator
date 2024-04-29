@@ -20,7 +20,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 
 @Composable
 fun WelcomeScreen(navController: NavController) {
@@ -42,7 +41,7 @@ fun WelcomeScreen(navController: NavController) {
         )
         Image(
             painter = image,
-            contentDescription = "Lawn Mower",
+            contentDescription = "Græsslåmaskine",
             alpha = 1f,
             modifier = Modifier
                 .size(width = 200.dp, height = 200.dp)
