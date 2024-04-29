@@ -14,15 +14,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
+@Preview
 fun WelcomeScreen() {
     val image = painterResource(R.drawable.lawn_mower_png_photo)
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
             .background(color = Color(0xFF4E965A)),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -30,8 +34,10 @@ fun WelcomeScreen() {
         Text(
             text = "Lawn Mower Simulator",
             color = Color.White,
-            fontSize = 30.sp,
+            fontSize = 39.sp,
             modifier = Modifier.padding(top = 16.dp),
+            fontWeight = FontWeight.Bold,
+            fontStyle = FontStyle.Italic
         )
         Image(
             painter = image,
@@ -44,25 +50,36 @@ fun WelcomeScreen() {
             text = "Savner du frodige plæner fra gamle minder",
             color = Color.White,
             fontSize = 20.sp,
-            modifier = Modifier.padding(top = 16.dp)
+            modifier = Modifier.padding(top = 16.dp),
+            fontWeight = FontWeight.Bold,
+            fontStyle = FontStyle.Italic
         )
         Text(
             text = "Så har vi en løsning til dig:",
             color = Color.White,
             fontSize = 20.sp,
-            modifier = Modifier.padding(top = 16.dp)
+            modifier = Modifier.padding(top = 16.dp),
+            fontWeight = FontWeight.Bold,
+            fontStyle = FontStyle.Italic
         )
         Text(
             text = "↓",
             color = Color.White,
-            fontSize = 50.sp
+            fontSize = 50.sp,
+            fontWeight = FontWeight.Bold,
+            fontStyle = FontStyle.Italic
         )
 
         Button(
             onClick = {},
             modifier = Modifier.padding(top = 16.dp),
         ) {
-            Text(text = "Start")
+            Text(
+                text = "Play the game",
+                fontWeight = FontWeight.Bold,
+                fontStyle = FontStyle.Italic
+            )
+
         }
     }
 }
